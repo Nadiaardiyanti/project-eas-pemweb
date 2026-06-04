@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="bg-blue-900 text-white py-4">
+        <div class="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-4 shadow-md">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="font-sans antialiased text-lg font-semibold">
                     DETAIL BUSINESS REQUIREMENT DOCUMENT
@@ -10,10 +10,10 @@
     </x-slot>
 
     <div class="py-8">
-        <div class="max-w-5xl mx-auto bg-white p-6 rounded shadow">
+        <div class="max-w-5xl mx-auto bg-white p-8 rounded-xl shadow-lg border border-gray-100">
 
             <div class="border-b pb-4 mb-6">
-                <h3 class="text-2xl font-bold text-blue-900">
+                <h3 class="text-3xl font-bold text-blue-900 tracking-wide">
                     {{ $brd->judul }}
                 </h3>
                 <p class="text-sm text-gray-500 mt-1">
@@ -27,14 +27,14 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                    <div class="bg-gray-50 p-5 rounded border border-gray-300">
+                    <div class="bg-gray-50 p-5 rounded-xl border border-gray-200 shadow-sm">
                         <h4 class="font-bold text-blue-900 mb-4">
                             Informasi BRD
                         </h4>
 
                         <label>Nomor BRD</label>
                         <input type="text" name="nomor_brd" value="{{ $brd->nomor_brd }}"
-                            class="border p-2 w-full mb-3"
+                            class="border border-gray-300 rounded-lg p-2 w-full mb-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                             @if(auth()->user()->role != 'sales') readonly @endif>
 
                         <label>Nama Client</label>
@@ -73,7 +73,7 @@
 
                         <div class="mb-4">
                             <p class="font-bold">Engineering</p>
-                            <span class="inline-block mt-1 px-3 py-1 rounded text-white text-sm
+                            <span class="inline-block mt-1 px-4 py-1 rounded-full text-white text-sm font-semibold shadow-sm
                                 @if($brd->status_engineering == 'approved')
                                     bg-blue-900
                                 @elseif($brd->status_engineering == 'rejected')
@@ -136,7 +136,7 @@
                         <span>{{ $file->nama_file }}</span>
 
                         <a href="{{ asset($file->path_file) }}"
-                           class="bg-blue-900 text-white px-3 py-1 rounded"
+                           class="bg-blue-900 hover:bg-blue-800 text-white px-4 py-2 rounded-lg shadow-sm transition duration-200"
                            target="_blank">
                             Download
                         </a>
@@ -148,12 +148,12 @@
 
                     <div class="flex justify-between items-center">
                         <a href="{{ route('brd.index') }}"
-                           class="bg-gray-500 text-white px-4 py-2 rounded">
+                           class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg shadow-sm transition duration-200">
                             Kembali
                         </a>
 
                         <button type="submit"
-                            class="bg-green-700 text-white px-4 py-2 rounded">
+                            class="bg-green-700 hover:bg-green-800 text-white px-4 py-2 rounded-lg shadow-sm transition duration-200">
                             Save BRD
                         </button>
                     </div>
@@ -169,7 +169,8 @@
                     @csrf
 
                     <label>Status</label>
-                    <select name="status_engineering" class="border p-2 w-full mb-4">
+                    <select name="status_engineering"
+                    class="border border-gray-300 rounded-lg p-2 w-full mb-4 focus:ring-2 focus:ring-blue-500">
                         <option value="approved" {{ $brd->status_engineering == 'approved' ? 'selected' : '' }}>Approve</option>
                         <option value="rejected" {{ $brd->status_engineering == 'rejected' ? 'selected' : '' }}>Reject</option>
                     </select>
