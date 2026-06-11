@@ -8,8 +8,8 @@ use App\Http\Controllers\InvoiceController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect('/dashboard');
-});
+    return view('welcome');
+})->name('home');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
@@ -55,7 +55,7 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/berita-acara/{id}',
         [BeritaAcaraController::class, 'destroy'])
-        ->name('ba.destroy');    
+        ->name('ba.destroy');
 
     Route::get('/berita-acara/{id}',
         [BeritaAcaraController::class, 'show'])
@@ -63,40 +63,40 @@ Route::middleware('auth')->group(function () {
 
     Route::put('/berita-acara/{id}',
         [BeritaAcaraController::class, 'update'])
-        ->name('ba.update');    
+        ->name('ba.update');
 
     // INVOICE
-Route::get('/invoice',
-    [InvoiceController::class, 'index'])
-    ->name('invoice.index');
+    Route::get('/invoice',
+        [InvoiceController::class, 'index'])
+        ->name('invoice.index');
 
-Route::get('/invoice/create/{baId}',
-    [InvoiceController::class, 'create'])
-    ->name('invoice.create');
+    Route::get('/invoice/create/{baId}',
+        [InvoiceController::class, 'create'])
+        ->name('invoice.create');
 
-Route::post('/invoice/store',
-    [InvoiceController::class, 'store'])
-    ->name('invoice.store');
+    Route::post('/invoice/store',
+        [InvoiceController::class, 'store'])
+        ->name('invoice.store');
 
-Route::get('/invoice/{id}/dokumen',
-    [InvoiceController::class, 'dokumen'])
-    ->name('invoice.dokumen');
+    Route::get('/invoice/{id}/dokumen',
+        [InvoiceController::class, 'dokumen'])
+        ->name('invoice.dokumen');
 
-Route::put('/invoice/{id}',
-    [InvoiceController::class, 'update'])
-    ->name('invoice.update');
+    Route::put('/invoice/{id}',
+        [InvoiceController::class, 'update'])
+        ->name('invoice.update');
 
-Route::post('/invoice/{id}/lunas',
-    [InvoiceController::class, 'lunas'])
-    ->name('invoice.lunas');
+    Route::post('/invoice/{id}/lunas',
+        [InvoiceController::class, 'lunas'])
+        ->name('invoice.lunas');
 
-Route::delete('/invoice/{id}',
-    [InvoiceController::class, 'destroy'])
-    ->name('invoice.destroy');
+    Route::delete('/invoice/{id}',
+        [InvoiceController::class, 'destroy'])
+        ->name('invoice.destroy');
 
-Route::get('/invoice/{id}',
-    [InvoiceController::class, 'show'])
-    ->name('invoice.show');
+    Route::get('/invoice/{id}',
+        [InvoiceController::class, 'show'])
+        ->name('invoice.show');
 
 });
 
