@@ -166,7 +166,7 @@
                     </div>
                     <div class="p-5 text-center">
                         <h4 class="text-base font-bold text-blue-900 tracking-tight">Nafisha Nuurfatnina</h4>
-                        <p class="text-[9px] font-bold text-blue-400 mt-1 uppercase tracking-[0.25em]">Head of Engineering</p>
+                        <p class="text-[9px] font-bold text-blue-400 mt-1 uppercase tracking-[0.25em]">Head of Sales</p>
                     </div>
                 </div>
 
@@ -176,7 +176,7 @@
                     </div>
                     <div class="p-5 text-center">
                         <h4 class="text-base font-bold text-blue-900 tracking-tight">Nadia Ardiyanti Sutrisno</h4>
-                        <p class="text-[9px] font-bold text-blue-400 mt-1 uppercase tracking-[0.25em]">Head of Sales</p>
+                        <p class="text-[9px] font-bold text-blue-400 mt-1 uppercase tracking-[0.25em]">Head of Engineering</p>
                     </div>
                 </div>
 
