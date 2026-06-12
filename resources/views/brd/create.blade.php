@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-4 shadow-md">
+        <div class="bg-blue-900 text-white py-4">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="font-sans antialiased text-lg font-semibold">
                     CREATE BUSINESS REQUIREMENT DOCUMENT
@@ -10,50 +10,64 @@
     </x-slot>
 
     <div class="py-8">
-        <div class="max-w<div class="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-lg border border-gray-100">-4xl mx-auto bg-white p-6 rounded shadow">
+        <div class="max-w-4xl mx-auto bg-white p-6 rounded shadow">
+
+            @if ($errors->any())
+                <div class="mb-4 bg-red-100 text-red-700 p-4 rounded">
+                    <strong>Data belum lengkap:</strong>
+                    <ul class="list-disc ml-5 mt-2">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             <form action="{{ route('brd.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
-                <label class="block mb-1 font-medium text-gray-700">
-                    Nomor BRD
-                </label>
-                <input type="text"
-       name="nomor_brd"
-       class="border border-gray-300 rounded-lg p-2 w-full mb-4 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <label>Nomor BRD</label>
+                <input type="text" name="nomor_brd" value="{{ old('nomor_brd') }}" required class="border p-2 w-full mb-4">
 
                 <label>Nama Client</label>
-                <input type="text" name="client" class="border p-2 w-full mb-4">
+                <input type="text" name="client" value="{{ old('client') }}" required class="border p-2 w-full mb-4">
 
                 <label>Nama Project</label>
-                <input type="text" name="judul" class="border p-2 w-full mb-4">
+                <input type="text" name="judul" value="{{ old('judul') }}" required class="border p-2 w-full mb-4">
 
                 <label>Deskripsi</label>
-                <textarea name="deskripsi" class="border p-2 w-full mb-4"></textarea>
+                <textarea name="deskripsi" required class="border p-2 w-full mb-4">{{ old('deskripsi') }}</textarea>
 
                 <label>Tanggal Upload</label>
                 <input type="date"
-                 name="tanggal_upload"
-                 value="{{ date('Y-m-d') }}"
-                 readonly
-                 class="border p-2 w-full mb-4">
+                       name="tanggal_upload"
+                       value="{{ old('tanggal_upload', date('Y-m-d')) }}"
+                       readonly
+                       required
+                       class="border p-2 w-full mb-4">
 
                 <label>Deadline Approval</label>
                 <input type="date"
-                 name="deadline"
-                 class="border p-2 w-full mb-4">
-  
+                       name="deadline"
+                       value="{{ old('deadline') }}"
+                       required
+                       class="border p-2 w-full mb-4">
+
                 <label>Upload File BRD</label>
-                <input type="file" name="files[]" class="border p-2 w-full mb-4" multiple>
+                <input type="file"
+                       name="files[]"
+                       required
+                       class="border p-2 w-full mb-4"
+                       multiple
+                       accept=".pdf,.doc,.docx">
 
                 <small class="text-gray-500">
-                    Bisa upload lebih dari 1 file (PDF, DOC, DOCX)
+                    Bisa upload lebih dari 1 file (PDF, DOC, DOCX, maksimal 5MB per file)
                 </small>
 
                 <br><br>
 
-                <button type="submit"
-                    class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg shadow transition duration-200">
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">
                     Simpan
                 </button>
 

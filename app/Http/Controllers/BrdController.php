@@ -36,7 +36,7 @@ class BrdController extends Controller
         'tanggal_upload' => 'required',
         'deadline' => 'required',
         'files' => 'required',
-        'files.*' => 'file|mimes:pdf,doc,docx|max:5120',
+        'files.*' => 'file|mimes:pdf,doc,docx',
     ]);
 
     $brd = Brd::create([

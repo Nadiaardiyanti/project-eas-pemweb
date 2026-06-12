@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-4 shadow-md">
+        <div class="bg-blue-900 text-white py-4">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="font-sans antialiased text-lg font-semibold">
                     BUSINESS REQUIREMENT DOCUMENT
@@ -10,18 +10,18 @@
     </x-slot>
 
     <div class="py-8">
-        <div class="max-w-7xl mx-auto bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+        <div class="max-w-7xl mx-auto bg-white p-6 rounded shadow">
 
             @if(auth()->user()->role == 'sales')
                 <a href="{{ route('brd.create') }}"
-                   class="inline-block bg-blue-900 hover:bg-blue-800 text-white px-4 py-2 rounded-lg shadow transition duration-200">
+                   class="bg-blue-900 text-white px-4 py-2 rounded">
                     + Create BRD
                 </a>
             @endif
 
-            <table class="w-<table class="w-full mt-6 border border-gray-200 rounded-lg overflow-hidden">full mt-6 border">
+            <table class="w-full mt-6 border">
                 <thead>
-                    <tr class="bg-blue-900 text-white uppercase text-sm">
+                    <tr class="bg-blue-900  text-white">
                         <th class="border p-3">NO</th>
                         <th class="border p-3">KODE BRD</th>
                         <th class="border p-3">NAMA PROJECT</th>
@@ -33,7 +33,7 @@
 
                 <tbody>
                     @foreach ($brds as $brd)
-                        <tr class="bg-blue-900 text-white uppercase text-sm">
+                        <tr>
                             <td class="border p-3 text-center">
                                 {{ $loop->iteration }}
                             </td>
@@ -55,7 +55,7 @@
 
                                     {{-- ENGINEER --}}
                                     <span
-                                        class="px-4 py-2 rounded-full text-white text-xs font-semibold shadow-sm
+                                        class="px-4 py-2 rounded text-white text-sm font-semibold
                                         @if($brd->status_engineering == 'approved')
                                             bg-green-900
                                         @elseif($brd->status_engineering == 'rejected')
@@ -86,7 +86,7 @@
     <div class="flex justify-center items-center gap-2">
 
         <a href="{{ route('brd.show', $brd->id) }}"
-           class="bg-blue-900 hover:bg-blue-800 text-white px-4 py-2 rounded-lg shadow-sm transition duration-200">
+           class="bg-blue-900 hover:bg-blue-800 text-white px-4 py-2 rounded">
             DETAIL
         </a>
 
@@ -94,12 +94,12 @@
 
     @if(!$brd->beritaAcara)
     <a href="{{ route('ba.create', $brd->id) }}"
-       class="bg-red-700 hover:bg-red-800 text-white px-4 py-2 rounded-lg shadow-sm transition duration-200">
+       class="bg-red-700 hover:bg-red-800 text-white px-4 py-2 rounded">
         CREATE BA
     </a>
 @else
     <a href="{{ route('ba.show', $brd->beritaAcara->id) }}"
-       class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg shadow-sm transition duration-200">
+       class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded">
         LIHAT BA
     </a>
 @endif
