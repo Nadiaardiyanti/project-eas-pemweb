@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Brd;
 use App\Models\BrdFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BrdController extends Controller
 {
@@ -36,29 +37,37 @@ class BrdController extends Controller
         'tanggal_upload' => 'required',
         'deadline' => 'required',
         'files' => 'required',
-        'files.*' => 'file|mimes:pdf,doc,docx',
+        'files.*' => 'file|mimes:pdf,doc,docx|max:5120',
     ]);
 
-    $brd = Brd::create([
-        'nomor_brd' => $request->nomor_brd,
-        'client' => $request->client,
-        'judul' => $request->judul,
-        'deskripsi' => $request->deskripsi,
-        'tanggal_upload' => $request->tanggal_upload,
-        'deadline' => $request->deadline,
-        'sales_id' => auth()->id(),
-    ]);
+    DB::transaction(function () use ($request) {
 
-    foreach ($request->file('files') as $file) {
-        $namaFile = time() . '_' . $file->getClientOriginalName();
-        $file->move(public_path('brd_files'), $namaFile);
-
-        BrdFile::create([
-            'brd_id' => $brd->id,
-            'nama_file' => $namaFile,
-            'path_file' => 'brd_files/' . $namaFile,
+        $brd = Brd::create([
+            'nomor_brd' => $request->nomor_brd,
+            'client' => $request->client,
+            'judul' => $request->judul,
+            'deskripsi' => $request->deskripsi,
+            'tanggal_upload' => $request->tanggal_upload,
+            'deadline' => $request->deadline,
+            'sales_id' => auth()->id(),
         ]);
-    }
+
+        foreach ($request->file('files') as $file) {
+
+            $namaFile = time() . '_' . $file->getClientOriginalName();
+
+            $file->move(
+                public_path('brd_files'),
+                $namaFile
+            );
+
+            BrdFile::create([
+                'brd_id' => $brd->id,
+                'nama_file' => $namaFile,
+                'path_file' => 'brd_files/' . $namaFile,
+            ]);
+        }
+    });
 
     return redirect()->route('brd.index');
 }
