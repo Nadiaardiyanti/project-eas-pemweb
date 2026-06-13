@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Invoice;
 use App\Models\BeritaAcara;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
 {
@@ -31,10 +32,12 @@ class InvoiceController extends Controller
     }
 
     public function store(Request $request)
-    {
-        if (auth()->user()->role != 'finance') {
-            abort(403);
-        }
+{
+    if (auth()->user()->role != 'finance') {
+        abort(403);
+    }
+
+    DB::transaction(function () use ($request) {
 
         Invoice::create([
             'berita_acara_id' => $request->berita_acara_id,
@@ -47,8 +50,10 @@ class InvoiceController extends Controller
             'keterangan' => $request->keterangan,
         ]);
 
-        return redirect()->route('invoice.index');
-    }
+    });
+
+    return redirect()->route('invoice.index');
+}
 
     public function show($id)
     {

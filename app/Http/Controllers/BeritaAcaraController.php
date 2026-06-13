@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Brd;
 use App\Models\BeritaAcara;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BeritaAcaraController extends Controller
 {
@@ -24,12 +25,14 @@ class BeritaAcaraController extends Controller
     }
 
     public function store(Request $request)
-    {
-        if (auth()->user()->role != 'engineering') {
-            abort(403);
-        }
+{
+    if (auth()->user()->role != 'engineering') {
+        abort(403);
+    }
 
-        $ba = BeritaAcara::create([
+    DB::transaction(function () use ($request) {
+
+        BeritaAcara::create([
             'brd_id'        => $request->brd_id,
             'nomor_ba'      => $request->nomor_ba,
             'nama_project'  => $request->nama_project,
@@ -40,9 +43,10 @@ class BeritaAcaraController extends Controller
             'pihak_kedua'   => $request->pihak_kedua,
             'keterangan'    => $request->keterangan,
         ]);
+    });
 
-        return redirect()->route('ba.index');
-    }
+    return redirect()->route('ba.index');
+}
 
     public function show($id)
     {
